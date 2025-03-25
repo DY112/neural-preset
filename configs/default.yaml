@@ -57,7 +57,7 @@ train:
       cooldown: 0
       min_lr: 0
       eps: 1e-08
-    monitor: 'train-total_loss'  # metric to monitor (only for ReduceLROnPlateau)
+    monitor: 'train-total_loss_epoch'  # metric to monitor (only for ReduceLROnPlateau)
 
 criterion:
   l1_loss:

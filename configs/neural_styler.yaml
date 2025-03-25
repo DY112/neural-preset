@@ -34,7 +34,7 @@ data:
 saver:  # save model ckpt, training state
   monitor_keys:
     # key/criterion (l for low,h for high)
-    - 'total_loss/l'  # low total loss is good
+    - 'train-total_loss_epoch/l'  # low total loss is good
   save_every_n_epoch: 10   # checkpoint auto save interval
 
 criterion:
