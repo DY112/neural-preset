@@ -1,0 +1,1 @@
+rm -r ../logs ../results ../ckpts

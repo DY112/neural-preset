@@ -1,0 +1,75 @@
+project_name: SAMPLE_PROJECT
+exp_name: 'EXP_NAME'
+
+# environment
+seed: 160122
+mode: train # [train / test]
+devices: 2  # ex) integer or list (2, [0,1,2,3]...)
+            #     N of process if accelerator is cpu,
+            #     N of gpu if accelerator is gpu
+random_seed: ~
+backup_host: 'ciplab@165.132.106.202'
+backup_target: '/media/ssd2/backups/Slot-IID/'
+
+path:
+  time_format: '%y%m%d_%H%M%S'
+  date_time_model: '950112_hhmmss_modelname'
+  log_root: '../logs'
+  ckpt_root: '../ckpts'
+  result_root: '../results'
+
+  # path params
+  # these params will be auto-initialized through utils.common.init_path function
+  log_path: ~     # tensorboard or wandb
+  ckpt_path: ~    # model & training state checkpoint
+  result_path: ~  # visualization or else...
+
+model:
+  name: model_name
+  ver: model_ver
+  solver: solver_ver
+
+load:
+  ckpt_path: ~      # '../ckpts/220314_1317/refactor_testing_best_MAE_illum.pt'
+  load_state: true  # if true, load everything and continue training. 
+                    # if false, load only network parameters
+  
+logger: # print & save log / tensorboard & wandb logging
+  use_wandb: true
+  log_every_n_steps: 50
+
+train:
+  optimizer:
+    adam:
+      lr: 1e-4
+      betas:
+        - 0.9
+        - 0.999
+  scheduler:
+    StepLR:
+      step_size: 300
+      gamma: 0.5
+      verbose: true
+    CosineAnnealingLR:
+      T_max: 10
+      eta_min: 1e-6
+      verbose: true
+    ReduceLROnPlateau:
+      mode: 'min'
+      factor: 0.1
+      patience: 10
+      verbose: true
+      threshold: 0.0001
+      threshold_mode: 'rel'
+      cooldown: 0
+      min_lr: 0
+      eps: 1e-08
+    monitor: 'train-total_loss'  # metric to monitor (only for ReduceLROnPlateau)
+
+criterion:
+  l1_loss:
+    mod: 'l1_loss'
+    alpha: 1.
+  cross_entropy:
+    mod: 'cross_entropy'
+    alpha: 1.
