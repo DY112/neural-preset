@@ -9,7 +9,7 @@ class MasterCriterion(nn.Module):
     def __init__(self, cfg) -> None:
         super().__init__()
         self.cfg = cfg
-        self.key_pairs = cfg.criterion.key_pairs
+        self.loss_keys = cfg.criterion.keys()
         
         self.mod_dict = {}
         self.mod_dict['l1_loss'] = L1_loss(cfg)
@@ -20,7 +20,7 @@ class MasterCriterion(nn.Module):
         loss_dict = {}
         total_loss = 0
         
-        for loss_key in self.key_pairs:
+        for loss_key in self.loss_keys:
             mod_key = self.cfg.criterion[loss_key].mod
             alpha = self.cfg.criterion[loss_key].alpha
             

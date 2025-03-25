@@ -48,12 +48,12 @@ if __name__ == '__main__':
     solver_mod = importlib.import_module(f'solvers.{cfg.model.name}_{cfg.model.solver}')
     solver_class = getattr(solver_mod,'Solver')
     solver = solver_class(net=network,
-                          loss=loss,
-                          **(OmegaConf.to_container(cfg, resolve=True, throw_on_missing=True)))
+                          criterion=loss,
+                          cfg=cfg)
     
     # Load Network if ckpt_path is given
     if cfg.load.ckpt_path is not None:
-        solver = solver.load_from_checkpoint(cfg.load.ckpt_path, net=network, loss=loss)
+        solver = solver.load_from_checkpoint(cfg.load.ckpt_path, net=network, criterion=loss)
     
     # Init trainer
     trainer_args = get_trainer_args(cfg)

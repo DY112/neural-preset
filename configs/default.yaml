@@ -1,15 +1,13 @@
-project_name: SAMPLE_PROJECT
-exp_name: 'EXP_NAME'
+project_name: neural_preset_public
+exp_name: 'neural_preset_baseline'
 
 # environment
 seed: 160122
 mode: train # [train / test]
-devices: 2  # ex) integer or list (2, [0,1,2,3]...)
+devices: 1  # ex) integer or list (2, [0,1,2,3]...)
             #     N of process if accelerator is cpu,
             #     N of gpu if accelerator is gpu
 random_seed: ~
-backup_host: 'ciplab@165.132.106.202'
-backup_target: '/media/ssd2/backups/Slot-IID/'
 
 path:
   time_format: '%y%m%d_%H%M%S'
@@ -23,11 +21,6 @@ path:
   log_path: ~     # tensorboard or wandb
   ckpt_path: ~    # model & training state checkpoint
   result_path: ~  # visualization or else...
-
-model:
-  name: model_name
-  ver: model_ver
-  solver: solver_ver
 
 load:
   ckpt_path: ~      # '../ckpts/220314_1317/refactor_testing_best_MAE_illum.pt'
