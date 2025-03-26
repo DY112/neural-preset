@@ -137,5 +137,6 @@ scripts/wandb
 *.png
 .DS_Store
 configs/env.yaml
-datasets/luts/*
+datasets/luts/*.cube
+datasets/luts/cache
 neural-preset-public/datasets/luts/*
