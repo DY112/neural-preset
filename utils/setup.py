@@ -79,19 +79,23 @@ def get_callbacks(cfg):
 
     # model checkpoint callbacks using criterion
     for criteria in cfg.saver.monitor_keys:
-        key, criteria = criteria.split('/')
+        # Split the full path into components (e.g., 'val/losses/total_loss-l')
+        components = criteria.split('-')
+        metric_path = components[0]     # e.g., 'val/losses/total_loss'
+        criteria = components[1]        # e.g., 'l' from 'total_loss-l'
+        
         if criteria == 'l':
             mode = 'min'
         elif criteria == 'h':
             mode = 'max'
         else:
-            raise NotImplementedError
+            raise NotImplementedError(f"Unknown criteria: {criteria}")
 
         callbacks.append(
             ModelCheckpoint(
                 dirpath=cfg.path.ckpt_path,
-                filename=f'best_{key}_{{epoch:04d}}',
-                monitor=key,
+                filename=f'best_{metric_path.replace("/", "_")}_{{epoch:04d}}',
+                monitor=metric_path,
                 mode=mode,
                 save_top_k=1,
                 save_last=True,

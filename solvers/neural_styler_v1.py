@@ -29,18 +29,6 @@ class Solver(pl.LightningModule):
         # Initialize loss functions
         self.l2 = nn.MSELoss()
         self.l1 = nn.L1Loss()
-        
-        # Initialize best metrics tracking
-        self._init_best_metrics()
-    
-    def _init_best_metrics(self):
-        """Initialize dictionaries for tracking best metrics and models."""
-        self.best_metric_dict = {}
-        self.best_model = {}
-        for key_criteria in self.cfg.saver.monitor_keys:
-            key, criteria = key_criteria.split('/')
-            self.best_metric_dict[key] = float('inf') if criteria == 'l' else float('-inf')
-            self.best_model[key] = None
     
     def _process_batch(self, batch):
         """Process a batch of images and return model outputs."""
@@ -71,7 +59,21 @@ class Solver(pl.LightningModule):
     
     def _log_metrics(self, losses, phase):
         """Log metrics to wandb and progress bar."""
-        log_dict = {f'{phase}-{k}': v for k, v in losses.items()}
+        # Create separate log dictionaries for train and val
+        if phase == 'train':
+            log_dict = {
+                'train/losses/consistency_loss': losses['consistency_loss'],
+                'train/losses/reconstruction_loss': losses['reconstruction_loss'],
+                'train/losses/total_loss': losses['total_loss']
+            }
+        else:  # val
+            log_dict = {
+                'val/losses/consistency_loss': losses['consistency_loss'],
+                'val/losses/reconstruction_loss': losses['reconstruction_loss'],
+                'val/losses/total_loss': losses['total_loss']
+            }
+        
+        # Log using PyTorch Lightning's log_dict
         self.log_dict(
             log_dict,
             on_step=(phase == 'train'),
@@ -162,9 +164,10 @@ class Solver(pl.LightningModule):
         save_path = os.path.join(save_dir, f'epoch_{self.current_epoch:04d}.png')
         cv2.imwrite(save_path, cv2.cvtColor(img, cv2.COLOR_RGB2BGR))
         
-        # Log to wandb
+        # Log to wandb with separate panels for train and val
         if self.cfg.logger.use_wandb:
+            print(f'wandb visualization logging : {self.current_epoch}')
             self.logger.experiment.log({
                 f'{phase}/visualization': wandb.Image(img)
-            }, step=self.current_epoch)
+            })
         
