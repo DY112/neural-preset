@@ -29,11 +29,11 @@ data:
   batch_size: 32
   num_workers: 32
   size: 256
-  lut_root: '../datasets/luts'  # lut files from "https://www.freepresets.com/product-category/free-luts-color-lookup-table/?orderby=date"
+  lut_root: '../datasets/luts'
 
 saver:  # save model ckpt, training state
   monitor_keys:
-    # key/criterion (l for low,h for high)
+    # monitoring_key-criterion (l for low,h for high)
     - 'val/losses/total_loss-l'  # low total loss is good
   save_every_n_epoch: 10   # checkpoint auto save interval
 

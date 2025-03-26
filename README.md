@@ -16,7 +16,7 @@ Neural Preset is a novel approach for color style transfer that learns to extrac
 mkdir -p ../dataset/coco
 
 # Make sure you are in the project root directory (neural-preset-public)
-cd neural-preset-public
+cd neural-preset
 ```
 
 ### Environment Setup
@@ -27,7 +27,7 @@ vi configs/env.yaml
 ```
 Add the following line to the file:
 ```yaml
-servername: 'r6'  # Change this to your training server/computer name
+servername: 'your_training_server/computer_name'  # Change this to your training server/computer name
 ```
 This name will be used as a prefix for wandb experiment names.
 
