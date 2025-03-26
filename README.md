@@ -1,6 +1,7 @@
 # Neural Preset (Unofficial Implementation)
 
 This is an unofficial implementation of the paper "Neural Preset for Color Style Transfer" (CVPR 2023) [[arXiv](https://arxiv.org/abs/2303.13511)].
+We provide **~200 LUT files** for training!
 
 ## Overview
 
