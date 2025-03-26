@@ -8,6 +8,17 @@ Neural Preset is a novel approach for color style transfer that learns to extrac
 
 ## Setup
 
+### Base Directory Setup
+
+1. Set up the base directory structure:
+```bash
+# Create dataset directory in the parent folder
+mkdir -p ../dataset/coco
+
+# Make sure you are in the project root directory (neural-preset-public)
+cd neural-preset-public
+```
+
 ### Environment Setup
 
 1. Create and configure the training server name in `configs/env.yaml`:
@@ -24,9 +35,6 @@ This name will be used as a prefix for wandb experiment names.
 
 1. Download COCO dataset:
 ```bash
-# Create dataset directory
-mkdir -p ../../dataset/coco
-
 # Download and extract COCO dataset using the provided script
 cd scripts
 bash download_coco.sh
