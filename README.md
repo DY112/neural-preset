@@ -113,9 +113,21 @@ criterion:
 
 ## Training
 
-To start training:
+To start training, use the provided training script:
 ```bash
-python main.py
+bash scripts/train_neural_preset.sh
+```
+
+The training script sets the following configurations:
+- `CUDA_VISIBLE_DEVICES=1`: Use GPU 1 for training
+- `model.name=neural_styler`: Use the Neural Styler model
+- `model.ver=v1`: Use version 1 of the model
+- `model.solver=v1`: Use version 1 of the solver
+- `mode=train`: Set training mode
+
+You can modify these parameters in the script or override them by adding command line arguments:
+```bash
+bash scripts/train_neural_preset.sh model.name=neural_styler model.ver=v2
 ```
 
 The training process will:
