@@ -10,9 +10,9 @@ Neural Preset is a novel approach for color style transfer that learns to extrac
 
 ### Environment Setup
 
-1. Create and configure the training server name in `env.yaml`:
+1. Create and configure the training server name in `configs/env.yaml`:
 ```bash
-vi env.yaml
+vi configs/env.yaml
 ```
 Add the following line to the file:
 ```yaml
