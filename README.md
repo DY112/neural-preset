@@ -10,18 +10,15 @@ Neural Preset is a novel approach for color style transfer that learns to extrac
 
 ### Environment Setup
 
-1. Create a conda environment using the provided `env.yaml`:
+1. Create and configure the training server name in `env.yaml`:
 ```bash
-conda env create -f env.yaml
-conda activate neural_preset
+vi env.yaml
 ```
-
-The `env.yaml` file contains all necessary dependencies including:
-- PyTorch and PyTorch Lightning for deep learning
-- OpenCV for image processing
-- Pillow and pillow_lut for LUT handling
-- Wandb for experiment tracking
-- OmegaConf for configuration management
+Add the following line to the file:
+```yaml
+servername: 'r6'  # Change this to your training server/computer name
+```
+This name will be used as a prefix for wandb experiment names.
 
 ### Dataset Setup
 
@@ -126,18 +123,6 @@ Training progress can be monitored through:
 - Weights & Biases dashboard
 - Local visualization saves in the results directory
 - Console output with loss values and progress bars
-
-## Citation
-
-If you use this implementation, please cite the original paper:
-```
-@inproceedings{neural_preset_cvpr2023,
-  title={Neural Preset for Color Style Transfer},
-  author={...},
-  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
-  year={2023}
-}
-```
 
 ## License
 
