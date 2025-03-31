@@ -103,10 +103,11 @@ class Solver(pl.LightningModule):
         
         # Visualize results (using only the first image from the batch)
         if batch_idx == 0:  # Only visualize for the first batch
+            rand_idx = np.random.randint(0, img_i.shape[0])
             grid_img = self.make_grid_image(
-                img_i[0], img_j[0],  # Take first image from batch
-                z_i[0], z_j[0],
-                y_i[0], y_j[0]
+                img_i[rand_idx], img_j[rand_idx],  # Take first image from batch
+                z_i[rand_idx], z_j[rand_idx],
+                y_i[rand_idx], y_j[rand_idx]
             )
             self.visualize_result(img=grid_img, phase='val')
         
@@ -166,7 +167,6 @@ class Solver(pl.LightningModule):
         
         # Log to wandb with separate panels for train and val
         if self.cfg.logger.use_wandb:
-            print(f'wandb visualization logging : {self.current_epoch}')
             self.logger.experiment.log({
                 f'{phase}/visualization': wandb.Image(img)
             })
