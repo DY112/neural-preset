@@ -7,11 +7,11 @@ model:
 
 train:
   start_epoch: 0
-  end_epoch: 30
+  end_epoch: 32
   optimizer:
     mode: 'adam'
     adam:
-      lr: 1e-4
+      lr: 3e-4
       betas:
         - 0.9
         - 0.999
@@ -26,7 +26,7 @@ test:
 data:
   name: 'coco'
   root: '../../dataset/coco/images'
-  batch_size: 32
+  batch_size: 24
   num_workers: 32
   size: 256
   lut_root: '../datasets/luts'

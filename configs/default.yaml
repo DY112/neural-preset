@@ -40,8 +40,8 @@ train:
         - 0.999
   scheduler:
     StepLR:
-      step_size: 300
-      gamma: 0.5
+      step_size: 24
+      gamma: 0.1
       verbose: true
     CosineAnnealingLR:
       T_max: 10
