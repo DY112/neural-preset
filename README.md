@@ -73,7 +73,7 @@ unzip cubes.zip -d datasets/luts/
 mkdir -p ckpts
 
 # Download pretrained checkpoint from Google Drive
-# Visit: https://drive.google.com/open?id=1TZRVwIlzBBewwzgjrScrVzeynhBSLmm0&usp=drive_fs
+# Visit: [Pretrained Checkpoint](https://drive.google.com/open?id=1TZRVwIlzBBewwzgjrScrVzeynhBSLmm0&usp=drive_fs)
 # Download the checkpoint file and place it in the ckpts directory
 ```
 
