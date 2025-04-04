@@ -67,13 +67,13 @@ mkdir -p datasets/luts
 unzip cubes.zip -d datasets/luts/
 ```
 
-3. Download pretrained checkpoint:
+3. Download pretrained checkpoint [here](https://drive.google.com/open?id=1TZRVwIlzBBewwzgjrScrVzeynhBSLmm0&usp=drive_fs):
 ```bash
 # Create checkpoint directory
-mkdir -p ckpts
+mkdir -p ckpts/best/
 
 # Download pretrained checkpoint from Google Drive
-# Visit: [Pretrained Checkpoint](https://drive.google.com/open?id=1TZRVwIlzBBewwzgjrScrVzeynhBSLmm0&usp=drive_fs)
+# Visit: https://drive.google.com/open?id=1TZRVwIlzBBewwzgjrScrVzeynhBSLmm0&usp=drive_fs
 # Download the checkpoint file and place it in the ckpts directory
 ```
 
@@ -160,7 +160,7 @@ Training progress can be monitored through:
 
 To test the model with the pretrained checkpoint:
 
-1. Make sure you have downloaded the pretrained checkpoint and placed it in the `ckpts` directory.
+1. Make sure you have downloaded the pretrained checkpoint and placed it in the `ckpts/best/` directory.
 
 2. Update the checkpoint path in the test script:
 ```bash
@@ -171,14 +171,27 @@ Update the `load.ckpt_path` parameter to point to your downloaded checkpoint fil
 
 3. Run the test script:
 ```bash
-bash scripts/test_neural_preset.sh
+cd scripts
+bash test_neural_preset.sh
 ```
 
 The test script will:
 - Load the pretrained model
-- Process test images
+- load test images
 - Generate color style transfer results
 - Save the results in the results directory
+
+
+## Test Sample Results
+
+![Test Sample Results](./test_sample.png)
+
+This image shows test results generated using our provided model. It demonstrates the content-style transfer results by cross-applying styles between images 4.jpg and 22.jpg.
+
+Each row shows:
+- First row: 4.jpg (input), intermediate features, result with style from 22.jpg
+- Second row: 22.jpg (input), intermediate features, result with style from 4.jpg
+
 
 ## License
 
