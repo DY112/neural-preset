@@ -20,9 +20,10 @@ train:
   check_val_every_n_epoch: 1   # validate & save model every n epoch
 
 test:
+  root: '../test_data'
   batch_size: 1
   different_content: ~
-  
+  num_workers: 32
 data:
   name: 'coco'
   root: '../../dataset/coco/images'

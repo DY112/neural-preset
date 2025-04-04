@@ -101,15 +101,26 @@ class Solver(pl.LightningModule):
         # Log metrics
         self._log_metrics(losses, 'val')
         
-        # Visualize results (using only the first image from the batch)
-        if batch_idx == 0:  # Only visualize for the first batch
+        # Visualize results
+        phase = 'test' if self.trainer.testing else 'val'
+        
+        if phase == 'test':
+            # Test mode: visualize all images in the batch
+            for idx in range(img_i.shape[0]):
+                grid_img = self.make_grid_image(
+                    img_i[idx], img_j[idx],
+                    z_i[idx], z_j[idx],
+                    y_i[idx], y_j[idx]
+                )
+                self.visualize_result(img=grid_img, phase=phase, batch_idx=batch_idx, img_idx=idx)
+        elif batch_idx == 0:  # Validation mode: only visualize first batch
             rand_idx = np.random.randint(0, img_i.shape[0])
             grid_img = self.make_grid_image(
-                img_i[rand_idx], img_j[rand_idx],  # Take first image from batch
+                img_i[rand_idx], img_j[rand_idx],
                 z_i[rand_idx], z_j[rand_idx],
                 y_i[rand_idx], y_j[rand_idx]
             )
-            self.visualize_result(img=grid_img, phase='val')
+            self.visualize_result(img=grid_img, phase=phase)
         
         return losses['total_loss']
     
@@ -157,12 +168,15 @@ class Solver(pl.LightningModule):
         
         return np.concatenate((first_row, second_row), axis=0)
     
-    def visualize_result(self, img, phase):
+    def visualize_result(self, img, phase, batch_idx=None, img_idx=None):
         """Save visualization results locally and to wandb."""
         # Save locally
         save_dir = os.path.join(self.cfg.path.result_path, phase)
         os.makedirs(save_dir, exist_ok=True)
-        save_path = os.path.join(save_dir, f'epoch_{self.current_epoch:04d}.png')
+        if batch_idx is None or img_idx is None:
+            save_path = os.path.join(save_dir, f'epoch_{self.current_epoch:04d}.png')
+        else:
+            save_path = os.path.join(save_dir, f'batch_{batch_idx}_img_{img_idx}.png')
         cv2.imwrite(save_path, cv2.cvtColor(img, cv2.COLOR_RGB2BGR))
         
         # Log to wandb with separate panels for train and val

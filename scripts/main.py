@@ -53,7 +53,7 @@ if __name__ == '__main__':
     
     # Load Network if ckpt_path is given
     if cfg.load.ckpt_path is not None:
-        solver = solver.load_from_checkpoint(cfg.load.ckpt_path, net=network, criterion=loss)
+        solver = solver.load_from_checkpoint(cfg.load.ckpt_path, net=network, criterion=loss, cfg=OmegaConf.create(cfg))
     
     # Init trainer
     trainer_args = get_trainer_args(cfg)
