@@ -56,7 +56,7 @@ The script will download:
 - Annotations for all splits
 - Stuff annotations
 
-2. Download LUT files:
+2. Download LUT files [here](https://drive.google.com/file/d/172j82XM9rwjIk-qYlN3VZAwk8sBy0XAf/view?usp=sharing):
 ```bash
 # Create LUT directory
 mkdir -p datasets/luts
