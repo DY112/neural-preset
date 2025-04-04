@@ -134,7 +134,6 @@ ckpts/
 results/
 scripts/wandb
 ._*
-*.png
 .DS_Store
 configs/env.yaml
 datasets/luts/*.cube
