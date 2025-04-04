@@ -112,7 +112,11 @@ class Solver(pl.LightningModule):
                     z_i[idx], z_j[idx],
                     y_i[idx], y_j[idx]
                 )
-                self.visualize_result(img=grid_img, phase=phase, batch_idx=batch_idx, img_idx=idx)
+                fname_i  = batch["fname_i"][idx].split('.')[0]
+                fname_j  = batch["fname_j"][idx].split('.')[0]
+                fname = f'{fname_i}_{fname_j}'
+                self.visualize_result(img=grid_img, phase=phase, fname=fname)
+                
         elif batch_idx == 0:  # Validation mode: only visualize first batch
             rand_idx = np.random.randint(0, img_i.shape[0])
             grid_img = self.make_grid_image(
@@ -168,15 +172,18 @@ class Solver(pl.LightningModule):
         
         return np.concatenate((first_row, second_row), axis=0)
     
-    def visualize_result(self, img, phase, batch_idx=None, img_idx=None):
+    def visualize_result(self, img, phase, fname=None, batch_idx=None, img_idx=None):
         """Save visualization results locally and to wandb."""
         # Save locally
         save_dir = os.path.join(self.cfg.path.result_path, phase)
         os.makedirs(save_dir, exist_ok=True)
-        if batch_idx is None or img_idx is None:
-            save_path = os.path.join(save_dir, f'epoch_{self.current_epoch:04d}.png')
+        if fname is None:
+            if batch_idx is None or img_idx is None:
+                save_path = os.path.join(save_dir, f'epoch_{self.current_epoch:04d}.png')
+            else:
+                save_path = os.path.join(save_dir, f'batch_{batch_idx}_img_{img_idx}.png')
         else:
-            save_path = os.path.join(save_dir, f'batch_{batch_idx}_img_{img_idx}.png')
+            save_path = os.path.join(save_dir, f'{fname}.png')
         cv2.imwrite(save_path, cv2.cvtColor(img, cv2.COLOR_RGB2BGR))
         
         # Log to wandb with separate panels for train and val

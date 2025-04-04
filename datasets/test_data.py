@@ -19,7 +19,7 @@ class TestDataset(Dataset):
         self.image_files.sort(key=lambda x: int(x[:-4]))
         
         # generate all possible image pairs
-        self.pairs = list(itertools.permutations(range(len(self.image_files)), 2))
+        self.pairs = list(itertools.combinations(range(len(self.image_files)), 2))
         
     def __len__(self):
         return len(self.pairs)
@@ -41,7 +41,9 @@ class TestDataset(Dataset):
         
         return {
             'img_i': img_i,
-            'img_j': img_j
+            'img_j': img_j,
+            'fname_i': self.image_files[i],
+            'fname_j': self.image_files[j]
         }
 
 def get_loader(cfg, phase):
@@ -51,9 +53,9 @@ def get_loader(cfg, phase):
     dataset = TestDataset(root_dir=cfg.test.root)
     loader = DataLoader(
         dataset,
-        batch_size=cfg.test.batch_size,
+        batch_size=cfg.data.batch_size,
         shuffle=False,
-        num_workers=cfg.test.num_workers,
+        num_workers=cfg.data.num_workers,
         pin_memory=True
     )
     return loader 
