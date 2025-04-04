@@ -178,7 +178,7 @@ bash test_neural_preset.sh
 The test script will:
 - Load the pretrained model
 - load test images
-- Generate color style transfer results
+- Generate color style transfer results for every possible combinations in `test_data`
 - Save the results in the results directory
 
 
