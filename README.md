@@ -67,6 +67,16 @@ mkdir -p datasets/luts
 unzip cubes.zip -d datasets/luts/
 ```
 
+3. Download pretrained checkpoint:
+```bash
+# Create checkpoint directory
+mkdir -p ckpts
+
+# Download pretrained checkpoint from Google Drive
+# Visit: https://drive.google.com/open?id=1TZRVwIlzBBewwzgjrScrVzeynhBSLmm0&usp=drive_fs
+# Download the checkpoint file and place it in the ckpts directory
+```
+
 ## Configuration
 
 The project uses YAML configuration files for flexible parameter management:
@@ -145,6 +155,30 @@ Training progress can be monitored through:
 - Weights & Biases dashboard
 - Local visualization saves in the results directory
 - Console output with loss values and progress bars
+
+## Testing with Pretrained Model
+
+To test the model with the pretrained checkpoint:
+
+1. Make sure you have downloaded the pretrained checkpoint and placed it in the `ckpts` directory.
+
+2. Update the checkpoint path in the test script:
+```bash
+# Edit the test script
+vi scripts/test_neural_preset.sh
+```
+Update the `load.ckpt_path` parameter to point to your downloaded checkpoint file.
+
+3. Run the test script:
+```bash
+bash scripts/test_neural_preset.sh
+```
+
+The test script will:
+- Load the pretrained model
+- Process test images
+- Generate color style transfer results
+- Save the results in the results directory
 
 ## License
 
